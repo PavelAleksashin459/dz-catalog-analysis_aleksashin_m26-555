@@ -91,7 +91,7 @@ def duration_in_hours(minutes: int) -> str:
 
 
 # 2 Этап
-def rating_tier(rating: int) ->  str:
+def rating_tier(rating: float) ->  str:
     '''
         Возвращает тир для рейтинга фильма
     '''
@@ -121,7 +121,6 @@ movies_not_comedy = []
 for movie in movies:
     if "comedy" not in movie['genres']:
         movies_not_comedy.append(movie['title'])
-    continue
 
 print(movies_not_comedy)
 
@@ -170,7 +169,7 @@ def format_report_line(movie: dict) -> str:
         Возвращает описание фильма
     '''
     line = (
-        f'"{movie["title"]}"'
+        f'"{movie["title"]}" '
         f'({movie["year"]}) - '
         f'{movie["rating"]}/10, '
         f'{duration_in_hours(movie["duration_min"])}, '
@@ -198,7 +197,7 @@ def top_n_by_rating(movies: list[dict], n:int =3) -> list[tuple]:
     for movie in sorted_movies:
         top_n.append((movie['title'], movie['rating']))
         i += 1
-        if i == 3:
+        if i == n:
             break
         else:
             continue
@@ -244,7 +243,7 @@ def genres_only_in_one(movies_a: list[dict], movies_b: list[dict]) -> set:
     return genres_only_in_a
 
 #Этап 8
-def iter_high_rated(movies: list[dict], min_rating:int=8.0) -> str:
+def iter_high_rated(movies: list[dict], min_rating:float=8.0) -> dict:
     '''
         Возвращает фильм с рейтингом не ниже min_rating
     '''
@@ -256,7 +255,7 @@ def iter_high_rated(movies: list[dict], min_rating:int=8.0) -> str:
 sum(m["duration_min"] for m in movies if m["rating"] > 7)
 
 #Этап 9
-def build_report(movies: list[dict]) -> str:
+def build_report(movies: list[dict]) -> None:
     print('ОТЧет ПО КАТАЛОГУ')
     print(f'Средний рейтинг: {average_rating(movies)}')
     print(f'Средний возраст фильмов: {catalog_age_stats(movies)[2]}')
