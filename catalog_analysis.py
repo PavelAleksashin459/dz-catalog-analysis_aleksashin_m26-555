@@ -196,4 +196,11 @@ def genres_only_in_one(movies_a: list[dict], movies_b: list[dict]) -> set:
     genres_only_in_a = all_genres(movies_a) - all_genres(movies_b)
     return genres_only_in_a
 
-print(genres_only_in_one(movies[5:6], movies[:5]))
+#Этап 8
+def iter_high_rated(movies: list[dict], min_rating:int=8.0) -> str:
+    for movie in movies:
+        if movie['rating'] >= min_rating:
+            yield movie
+
+
+sum(m["duration_min"] for m in movies if m["rating"] > 7)
