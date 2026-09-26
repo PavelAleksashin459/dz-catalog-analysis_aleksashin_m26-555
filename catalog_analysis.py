@@ -157,5 +157,16 @@ def top_n_by_rating(movies: list[dict], n:int =3) -> list[tuple]:
             continue
     return top_n
 
+#Этап 6
+def count_by_genre(movies: list[dict]) -> dict:
+    '''
+        Считает кол-во фильмов по жанрам
+    '''
+    dict_genres = {}
+    for movie in movies:
+        for genre in movie['genres']:
+            dict_genres.update({genre: dict_genres.get(genre, 0) + 1})
+    return dict_genres
 
-print(top_n_by_rating(movies))
+
+print(count_by_genre(movies))
