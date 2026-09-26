@@ -169,4 +169,31 @@ def count_by_genre(movies: list[dict]) -> dict:
     return dict_genres
 
 
-print(count_by_genre(movies))
+#Этап 7
+def all_genres(movies: list[dict]) -> set:
+    '''
+        Выводит список жанров
+    '''
+    all_genres = set()
+    for movie in movies:
+        for genre in movie['genres']:
+            all_genres.add(genre)
+    return all_genres
+
+def common_actors(movie1: dict, movie2: dict) -> set:
+    '''
+        Выводит список актеров из обоих фильмов
+    '''
+    movie1_actors = set(movie1['actors'])
+    movie2_actors = set(movie2['actors'])
+    actors = movie1_actors&movie2_actors
+    return actors
+
+def genres_only_in_one(movies_a: list[dict], movies_b: list[dict]) -> set:
+    '''
+        Выводит список жанров, которые есть в а, но нет в b
+    '''
+    genres_only_in_a = all_genres(movies_a) - all_genres(movies_b)
+    return genres_only_in_a
+
+print(genres_only_in_one(movies[5:6], movies[:5]))
