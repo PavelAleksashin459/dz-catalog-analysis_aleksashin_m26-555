@@ -23,22 +23,56 @@ movies = [
      "rating": 7.3, "duration_min": 129, "actors": ["P. Diaz", "T. Chalamet"]},
 ]
 
+
+# 1 Этап
 def average_rating(movies: list[dict]) -> float:
+    '''
+        Функция для подсчета среднего рейтинга фильмов в датасете
+    '''
     return round(sum(movie["rating"] for movie in movies) / len(movies), 1)
 
-print(average_rating(movies))
-
 def catalog_age_stats(movies: list[dict], current_year: int = 2026) -> tuple[str, str, int]:
+    '''
+        Функция для вывода возраста самого старого, нового фильмов и средний возраст
+    '''
     oldest_movie = current_year - min(movie["year"] for movie in movies)
     newest_movie = current_year - max(movie["year"] for movie in movies)
     average_year = math.ceil(current_year - sum(movie["year"] for movie in movies)/ len(movies))
     return tuple[oldest_movie, newest_movie, average_year]
 
-print(catalog_age_stats(movies))
-
 def duration_in_hours(minutes: int) -> str:
+    '''
+        Перевод минут в формат часы и минуты
+    '''
     hours = minutes // 60
     minutes_from_hour = minutes % 60
     return f'{hours}ч {minutes_from_hour}м'
 
-print(duration_in_hours(155))
+
+# 2 Этап
+def rating_tier(rating: int) ->  str:
+    '''
+        Возвращает тир для рейтинга фильма
+    '''
+    if rating >= 7:
+        tier = "шедевр" if rating >= 9 else "хорошо"
+    elif rating >= 5:
+        tier = "средне" 
+    else:  
+        tier = "слабо"
+    return tier
+
+def decade_label(year: int) -> str:
+    '''
+        Вовзращает декодирование название года
+    '''
+    match year:
+        case year if year > 2020:
+            label = 'новые'
+        case year if year >= 2015:
+            label = 'недавние'
+        case _:
+            label = 'старые'
+    return label
+
+print(rating_tier(3))
