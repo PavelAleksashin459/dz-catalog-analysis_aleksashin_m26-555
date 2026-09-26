@@ -1,3 +1,4 @@
+import array
 import math
 
 movies = [
@@ -76,13 +77,13 @@ def decade_label(year: int) -> str:
     return label
 
 # Этап 3
-result = []
+movies_not_comedy = []
 for movie in movies:
     if "comedy" not in movie['genres']:
-        result.append(movie['title'])
+        movies_not_comedy.append(movie['title'])
     continue
 
-print(result)
+print(movies_not_comedy)
 
 n = 0
 while True:
@@ -96,9 +97,40 @@ while True:
     
 
 def count_long_movies(movies: list[dict], threshold: int = 120) -> int:
+    '''
+        Выводит количество фильмов с длительностью больше threshold
+    '''
     number_films = 0
     for movie in movies:
         number_films += 1 if movie['duration_min'] > threshold else 0
     return number_films 
 
+#Этап 4
 
+def normalize_title(title: str) -> str:
+    '''
+        Преобразует название, чтобы каждое слово было с большой буквы
+    '''
+    split_title = title.split(sep = ' ')
+    normalized_title_arr = []
+    for word in split_title:
+        normalized_title_arr.append(word[0].upper() + word[1:])
+    normalized_title = ' '.join(normalized_title_arr)
+    return normalized_title
+
+def make_slug(title: str) -> str:
+    '''
+        Преводить все к нижнему регистру и заменяет пробел на тире
+    '''
+    slug = title.lower().replace(' ', '-')
+    return slug
+
+def format_report_line(movie: dict) -> str:
+    '''
+        Возвращает описание фильма
+    '''
+    line = f'"{movie["title"]}" ({movie["year"]}) - {movie["rating"]}/10, {duration_in_hours(movie["duration_min"])}, жанры: {", ".join(sorted(movie["genres"]))}'
+    return line
+
+print(format_report_line(movies[7]))
+        
