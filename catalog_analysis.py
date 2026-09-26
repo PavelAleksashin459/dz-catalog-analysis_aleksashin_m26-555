@@ -132,5 +132,30 @@ def format_report_line(movie: dict) -> str:
     line = f'"{movie["title"]}" ({movie["year"]}) - {movie["rating"]}/10, {duration_in_hours(movie["duration_min"])}, жанры: {", ".join(sorted(movie["genres"]))}'
     return line
 
-print(format_report_line(movies[7]))
-        
+
+#Этап 5
+def titles_sorted_by_rating(movies: list[dict]) -> list[str]:
+    '''
+        Возвращает отсортированный список фильмов по рейтингу
+    '''
+    sorted_titles =  [movie['title'] for movie in sorted(movies, key=lambda movie: movie['rating'], reverse=True)]
+    return sorted_titles
+
+def top_n_by_rating(movies: list[dict], n:int =3) -> list[tuple]:
+    '''
+        Возвращает топ n фильмов по рейтингу
+    '''
+    top_n = []
+    i = 0
+    sorted_movies = sorted(movies, key=lambda movie: movie['rating'], reverse=True)
+    for movie in sorted_movies:
+        top_n.append((movie['title'], movie['rating']))
+        i += 1
+        if i == 3:
+            break
+        else:
+            continue
+    return top_n
+
+
+print(top_n_by_rating(movies))
